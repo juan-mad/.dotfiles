@@ -98,19 +98,19 @@ require("lazy").setup({
             lsp_zero.extend_cmp()
 
             -- and cmp can be configured further
-            -- local cmp = require('cmp')
-            -- local cmp_action = lsp_zero.cmp_format()
+            local cmp = require('cmp')
+            local cmp_action = lsp_zero.cmp_format()
 
-            -- cmp.setup({
-            --     formatting = lsp.cmp_format(),
-            --     mapping = cmp.mapping.preset.insert({
-            --         ['<C-Space>'] = cmp.mapping.complete(),
-            --         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-            --         ['<C-d>'] = cmp.mapping.scroll_docs(4),
-            --         ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-            --         ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-            --     })
-            -- )}
+            cmp.setup({
+                formatting = lsp_zero.cmp_format(),
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                    -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+                    -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+                })
+            })
         end
     },
     -- LSP
@@ -133,14 +133,32 @@ require("lazy").setup({
                 lsp_zero.default_keymaps({buffer = bufnr})
             end)
 
+
             require('mason-lspconfig').setup({
                 ensure_installed = {},
                 handlers = {
                     lsp_zero.default_setup,
+                    -- here come the language servers
+                    -- add their name as a function, and configure them
+                    
                     lua_ls = function()
                         -- (Optronal) configure lua LS for neovim
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require('lspconfig').lua_ls.setup(lua_opts)
+                    end,
+
+                    pylsp = function()
+                        require('lspconfig').pylsp.setup({
+                            settings = {
+                                pylsp = {
+                                    plugins = {
+                                        pycodestyle = {
+                                            maxLineLength = 120
+                                        }
+                                    }
+                                }
+                            }
+                        })
                     end,
                 }
             })
