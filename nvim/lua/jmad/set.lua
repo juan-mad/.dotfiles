@@ -1,6 +1,18 @@
 -- sets a "fat" cursor
 -- vim.opt.guicursor = ""
 
+-- Sync clipboard between OS and Neovim
+vim.o.clipboard = 'unnamedplus'
+
+-- Wrapped lines indented
+-- vim.o.breakindent = true
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Keep signcolumn by default
+vim.o.signcolumn = 'yes'
+
 -- Line numbers + relative line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
