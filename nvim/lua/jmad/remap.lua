@@ -43,36 +43,7 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- navigate diagnostics
+vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.WARN}) end)
+vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({severity=vim.diagnostic.severity.WARN}) end)
 
