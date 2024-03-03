@@ -1,8 +1,10 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- this onyl works for netrw
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- avoid space from being used alone and advancing cursor (default behaviour)
 vim.keymap.set({"n", "v"}, "<Space>", "<nop>")
+vim.keymap.set({"i", "n"}, "<C-m>", "<nop>")
 
 -- move selected text up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -42,8 +44,3 @@ vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-
--- navigate diagnostics
-vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.WARN}) end)
-vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({severity=vim.diagnostic.severity.WARN}) end)
-
