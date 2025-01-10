@@ -116,6 +116,9 @@ require("lazy").setup({
         dependencies = {
             {'rafamadriz/friendly-snippets'},
         },
+        config = function()
+            require("luasnip.loaders.from_lua").load({paths = "~/.snippets" })
+        end
     },
     {
         'williamboman/mason.nvim',
@@ -146,7 +149,7 @@ require("lazy").setup({
                     {name = 'luasnip'},  -- snippets of LuaSnip and friendly-snippets
                     {name = 'nvim_lsp'},  -- comes with lsp-zero
                     {name = 'nvim_lua'},  -- neovim's lua completion
-                    {name = 'buffer'},  -- autocomplete looking at curr file
+                    -- {name = 'buffer'},  -- autocomplete looking at curr file
                     {name = 'path'},  -- paths of files and folders
                 },
                 formatting = cmp_format,
@@ -167,7 +170,7 @@ require("lazy").setup({
                     -- ['<C-j>'] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Select}),
                     -- ['<C-k>'] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Select}),
                     ['<C-n>'] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
-                    ['<C-b>'] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
+                    ['<C-l>'] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
                     ['<C-f>'] = cmp_action.luasnip_jump_forward(),
                     ['<C-g>'] = cmp_action.luasnip_jump_backward(),
                 },
@@ -273,6 +276,19 @@ require("lazy").setup({
                 return require "jmad.none_ls"
             end
         }
+    },
+    {
+      "ray-x/go.nvim",
+      dependencies = {  -- optional packages
+        "ray-x/guihua.lua",
+        "nvim-treesitter/nvim-treesitter",
+      },
+      config = function()
+        require("go").setup()
+      end,
+      event = {"CmdlineEnter"},
+      ft = {"go", 'gomod'},
+      build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
     },
     -- debugger
     {
